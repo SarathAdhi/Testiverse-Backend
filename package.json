@@ -47,6 +47,8 @@
     "@types/passport-google-oauth2": "^0.1.8",
     "@types/validator": "^13.11.8",
     "nodemon": "^3.0.3",
+    "pre-commit": "^1.2.2",
+    "rimraf": "^5.0.5",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3"
   }
