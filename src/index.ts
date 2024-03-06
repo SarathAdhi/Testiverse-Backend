@@ -1,17 +1,16 @@
 import dotenv from "dotenv";
 dotenv.config();
 
-import express, { Express } from "express";
 import cookieParser from "cookie-parser";
 import cors from "cors";
-import bodyParser from "body-parser";
-import passport from "passport";
+import express, { Express } from "express";
 import session from "express-session";
-import { AuthRouter } from "./routes/auth.routes";
 import mongoose from "mongoose";
-import { MONGO_DB_URI } from "./utils/my-envs";
+import passport from "passport";
+import { AuthRouter } from "./routes/auth.routes";
 import { ShowcaseRouter } from "./routes/showcase.routes";
 import { TestimonialRouter } from "./routes/testimonial.routes";
+import { MONGO_DB_URI } from "./utils/my-envs";
 
 const app: Express = express();
 
@@ -62,3 +61,5 @@ mongoose
 app.listen(port, () => {
   console.log(`[server]: Server is running at http://localhost:${port}`);
 });
+
+export default app;
