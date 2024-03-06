@@ -4,13 +4,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.githubCallbackFunction = exports.googleCallbackFunction = void 0;
-const passport_1 = __importDefault(require("passport"));
-const passport_google_oauth2_1 = require("passport-google-oauth2");
-const passport_github2_1 = require("passport-github2");
-const my_envs_1 = require("../utils/my-envs");
-const user_schema_1 = __importDefault(require("../schemas/user.schema"));
-const zod_1 = require("zod");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+const passport_1 = __importDefault(require("passport"));
+const passport_github2_1 = require("passport-github2");
+const passport_google_oauth2_1 = require("passport-google-oauth2");
+const zod_1 = require("zod");
+const user_schema_1 = __importDefault(require("../schemas/user.schema"));
+const my_envs_1 = require("../utils/my-envs");
 const UserJsonSchema = zod_1.z.object({
     email: zod_1.z.string().email(),
     image: zod_1.z.string().url(),
@@ -73,13 +73,13 @@ async function githubVerifyFunction(request, accessToken, refreshToken, profile,
 passport_1.default.use(new passport_google_oauth2_1.Strategy({
     clientID: my_envs_1.GOOGLE_CLIENT_ID,
     clientSecret: my_envs_1.GOOGLE_CLIENT_SECRET,
-    callbackURL: "http://localhost:8000/auth/google/callback",
+    callbackURL: process.env.BACKEND_URL + "/auth/google/callback",
     passReqToCallback: true,
 }, googleVerifyFunc));
 passport_1.default.use(new passport_github2_1.Strategy({
     clientID: my_envs_1.GITHUB_CLIENT_ID,
     clientSecret: my_envs_1.GITHUB_CLIENT_SECRET,
-    callbackURL: "http://localhost:8000/auth/github/callback",
+    callbackURL: process.env.BACKEND_URL + "/auth/github/callback",
     passReqToCallback: true,
 }, githubVerifyFunction));
 // ------------ Google ------------------

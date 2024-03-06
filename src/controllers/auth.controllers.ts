@@ -1,10 +1,13 @@
 import { Request, RequestHandler } from "express";
+import jwt from "jsonwebtoken";
 import passport from "passport";
+import { Strategy as GitHubStrategy } from "passport-github2";
 import {
   Strategy as GoogleStrategy,
   type VerifyCallback,
 } from "passport-google-oauth2";
-import { Strategy as GitHubStrategy } from "passport-github2";
+import { z } from "zod";
+import User from "../schemas/user.schema";
 import {
   FRONTEND_URL,
   GITHUB_CLIENT_ID,
@@ -13,9 +16,6 @@ import {
   GOOGLE_CLIENT_SECRET,
   SECRET_KEY,
 } from "../utils/my-envs";
-import User from "../schemas/user.schema";
-import { z } from "zod";
-import jwt from "jsonwebtoken";
 
 const UserJsonSchema = z.object({
   email: z.string().email(),
@@ -113,7 +113,7 @@ passport.use(
     {
       clientID: GOOGLE_CLIENT_ID!,
       clientSecret: GOOGLE_CLIENT_SECRET!,
-      callbackURL: "http://localhost:8000/auth/google/callback",
+      callbackURL: process.env.BACKEND_URL + "/auth/google/callback",
       passReqToCallback: true,
     },
     googleVerifyFunc
@@ -125,7 +125,7 @@ passport.use(
     {
       clientID: GITHUB_CLIENT_ID!,
       clientSecret: GITHUB_CLIENT_SECRET!,
-      callbackURL: "http://localhost:8000/auth/github/callback",
+      callbackURL: process.env.BACKEND_URL + "/auth/github/callback",
       passReqToCallback: true,
     },
     githubVerifyFunction
