@@ -1,9 +1,9 @@
-import type { User as UserType } from "../schemas/user.schema";
+import type { UserType } from "../schemas/user.schema";
 
 declare module "express" {
   interface Request {
-    user?: Request["user"] & Omit<UserType, "created_at">;
+    user?: UserRequest;
   }
 
-  interface User extends Omit<UserType, "created_at"> {}
+  interface UserRequest extends Omit<UserType, "created_at"> {}
 }

@@ -1,6 +1,6 @@
 import { Request } from "express";
-import { getBearerToken } from "./get-bearer-token";
 import jwt, { JwtPayload, TokenExpiredError } from "jsonwebtoken";
+import { getBearerToken } from "./get-bearer-token";
 import { SECRET_KEY } from "./my-envs";
 
 export const verifyJwtWithRequest = async (req: Request) => {
