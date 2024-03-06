@@ -4,11 +4,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.protectedRoute = void 0;
+const jsonwebtoken_1 = require("jsonwebtoken");
 const user_schema_1 = __importDefault(require("../schemas/user.schema"));
 const get_bearer_token_1 = require("../utils/get-bearer-token");
-const verify_jwt_1 = require("../utils/verify-jwt");
-const jsonwebtoken_1 = require("jsonwebtoken");
 const response_handler_1 = require("../utils/response-handler");
+const verify_jwt_1 = require("../utils/verify-jwt");
 const protectedRoute = async (req, res, next) => {
     const token = (0, get_bearer_token_1.getBearerToken)(req);
     if (!token)

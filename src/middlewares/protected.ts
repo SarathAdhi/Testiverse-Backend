@@ -1,9 +1,9 @@
 import { RequestHandler } from "express";
+import { TokenExpiredError } from "jsonwebtoken";
 import User from "../schemas/user.schema";
 import { getBearerToken } from "../utils/get-bearer-token";
-import { verifyJwtWithBearer } from "../utils/verify-jwt";
-import { TokenExpiredError } from "jsonwebtoken";
 import { responseHandler } from "../utils/response-handler";
+import { verifyJwtWithBearer } from "../utils/verify-jwt";
 
 export const protectedRoute: RequestHandler = async (req, res, next) => {
   const token = getBearerToken(req);
