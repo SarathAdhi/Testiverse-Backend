@@ -7,6 +7,7 @@ import {
   type VerifyCallback,
 } from "passport-google-oauth2";
 import { z } from "zod";
+import client from "../lib/redis";
 import User from "../schemas/user.schema";
 import {
   FRONTEND_URL,
@@ -159,7 +160,14 @@ export const googleCallbackFunction: RequestHandler = (req, res, next) => {
           expiresIn: "12h",
         });
 
-        console.log({ token });
+        await client.set(
+          String(user?._id),
+          JSON.stringify(user),
+          "EX",
+          60 * 60 * 24
+        );
+
+        // console.log({ token });
 
         return res.redirect(`${FRONTEND_URL}/auth/verify?token=${token}`);
       });
@@ -194,7 +202,14 @@ export const githubCallbackFunction: RequestHandler = (req, res, next) => {
           expiresIn: "12h",
         });
 
-        console.log({ token });
+        await client.set(
+          String(user?._id),
+          JSON.stringify(user),
+          "EX",
+          60 * 60 * 24
+        );
+
+        // console.log({ token });
 
         return res.redirect(`${FRONTEND_URL}/auth/verify?token=${token}`);
       });

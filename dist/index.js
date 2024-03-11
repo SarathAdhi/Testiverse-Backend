@@ -26,7 +26,7 @@ app.use(express_1.default.urlencoded({ extended: true, limit: "50mb" }));
 // );
 // app.use(bodyParser.json());
 app.use((0, cookie_parser_1.default)());
-app.use((req, res, next) => {
+app.use(async (req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();

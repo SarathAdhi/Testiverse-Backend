@@ -1,7 +1,8 @@
 import "jsonwebtoken";
+import { UserType } from "../schemas/user.schema";
 
 declare module "jsonwebtoken" {
   interface JwtPayload {
-    id: string;
+    user: UserType;
   }
 }

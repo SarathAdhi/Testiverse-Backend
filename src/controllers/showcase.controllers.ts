@@ -126,8 +126,6 @@ export const getMyShowcases: RequestHandler = async (req, res, next) => {
       },
     ]);
 
-    console.log(JSON.stringify(showcases, null, 4));
-
     // const showcases = await Showcase.find({ user: user._id });
 
     return responseHandler(res).success(

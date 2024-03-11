@@ -118,7 +118,6 @@ const getMyShowcases = async (req, res, next) => {
                 $sort: { createdAt: -1 },
             },
         ]);
-        console.log(JSON.stringify(showcases, null, 4));
         // const showcases = await Showcase.find({ user: user._id });
         return (0, response_handler_1.responseHandler)(res).success(201, "User showcases fetched successfully", showcases);
     }

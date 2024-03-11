@@ -9,6 +9,7 @@ const passport_1 = __importDefault(require("passport"));
 const passport_github2_1 = require("passport-github2");
 const passport_google_oauth2_1 = require("passport-google-oauth2");
 const zod_1 = require("zod");
+const redis_1 = __importDefault(require("../lib/redis"));
 const user_schema_1 = __importDefault(require("../schemas/user.schema"));
 const my_envs_1 = require("../utils/my-envs");
 const UserJsonSchema = zod_1.z.object({
@@ -101,7 +102,8 @@ const googleCallbackFunction = (req, res, next) => {
             const token = await jsonwebtoken_1.default.sign({ user: req.user }, my_envs_1.SECRET_KEY, {
                 expiresIn: "12h",
             });
-            console.log({ token });
+            await redis_1.default.set(String(user?._id), JSON.stringify(user), "EX", 60 * 60 * 24);
+            // console.log({ token });
             return res.redirect(`${my_envs_1.FRONTEND_URL}/auth/verify?token=${token}`);
         });
     })(req, res, next);
@@ -126,7 +128,8 @@ const githubCallbackFunction = (req, res, next) => {
             const token = await jsonwebtoken_1.default.sign({ user: req.user }, my_envs_1.SECRET_KEY, {
                 expiresIn: "12h",
             });
-            console.log({ token });
+            await redis_1.default.set(String(user?._id), JSON.stringify(user), "EX", 60 * 60 * 24);
+            // console.log({ token });
             return res.redirect(`${my_envs_1.FRONTEND_URL}/auth/verify?token=${token}`);
         });
     })(req, res, next);
