@@ -9,6 +9,7 @@ const fs_1 = require("fs");
 const zod_1 = require("zod");
 const firebase_helper_functions_1 = require("../lib/firebase-helper-functions");
 const showcase_schema_1 = __importDefault(require("../schemas/showcase.schema"));
+const testimonial_schema_1 = __importDefault(require("../schemas/testimonial.schema"));
 const helper_functions_1 = require("../utils/helper-functions");
 const response_handler_1 = require("../utils/response-handler");
 const showcaseSchema = zod_1.z.object({
@@ -261,6 +262,9 @@ const deleteShowcase = async (req, res, next) => {
         if (!showcase)
             return (0, response_handler_1.responseHandler)(res).error(404, "Showcase not found");
         await showcase.deleteOne();
+        const showcaseFolderPath = `/${id}/`;
+        await (0, firebase_helper_functions_1.deleteFile)(showcaseFolderPath);
+        await testimonial_schema_1.default.deleteMany({ showcase: id });
         // await Showcase.findOneAndDelete({ _id: id, user: user?._id });
         return (0, response_handler_1.responseHandler)(res).success(201, "Showcase deleted successfully");
     }

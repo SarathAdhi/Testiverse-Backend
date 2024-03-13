@@ -8,6 +8,7 @@ import {
   getFile,
 } from "../lib/firebase-helper-functions";
 import Showcase from "../schemas/showcase.schema";
+import Testimonial from "../schemas/testimonial.schema";
 import { UserType } from "../schemas/user.schema";
 import { generateSlug } from "../utils/helper-functions";
 import { responseHandler } from "../utils/response-handler";
@@ -342,6 +343,11 @@ export const deleteShowcase: RequestHandler = async (req, res, next) => {
     if (!showcase) return responseHandler(res).error(404, "Showcase not found");
 
     await showcase.deleteOne();
+
+    const showcaseFolderPath = `/${id}/`;
+    await deleteFile(showcaseFolderPath);
+
+    await Testimonial.deleteMany({ showcase: id });
 
     // await Showcase.findOneAndDelete({ _id: id, user: user?._id });
 
