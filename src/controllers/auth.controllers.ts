@@ -7,7 +7,6 @@ import {
   type VerifyCallback,
 } from "passport-google-oauth2";
 import { z } from "zod";
-import client from "../lib/redis";
 import User from "../schemas/user.schema";
 import {
   FRONTEND_URL,
@@ -160,12 +159,12 @@ export const googleCallbackFunction: RequestHandler = (req, res, next) => {
           expiresIn: "12h",
         });
 
-        await client.set(
-          String(user?._id),
-          JSON.stringify(user),
-          "EX",
-          60 * 60 * 24
-        );
+        // await client.set(
+        //   String(user?._id),
+        //   JSON.stringify(user),
+        //   "EX",
+        //   60 * 60 * 24
+        // );
 
         // console.log({ token });
 
@@ -202,12 +201,12 @@ export const githubCallbackFunction: RequestHandler = (req, res, next) => {
           expiresIn: "12h",
         });
 
-        await client.set(
-          String(user?._id),
-          JSON.stringify(user),
-          "EX",
-          60 * 60 * 24
-        );
+        // await client.set(
+        //   String(user?._id),
+        //   JSON.stringify(user),
+        //   "EX",
+        //   60 * 60 * 24
+        // );
 
         // console.log({ token });
 
